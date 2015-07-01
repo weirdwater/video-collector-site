@@ -1,5 +1,6 @@
 <?php
 require 'settings.php';
+require 'Classes/YoutubeHandler.php';
 
 // Setup output array that will be changed into JSON
 $reply = [
@@ -29,3 +30,5 @@ catch (Exception $e)
 	echo json_encode($reply);
 	exit;
 }
+
+$youtube = new \imp\YoutubeHandler();

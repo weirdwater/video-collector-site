@@ -8,7 +8,7 @@ define('DB_PASS', 'root');
 
 // PATH
 define('BASE_URL', '/');
-define('ROOT_PATH', $SERVER['DOCUMENT_ROOT'].'/api/v1');
+define('ROOT_PATH', $SERVER['DOCUMENT_ROOT'].'/api/v1/');
 
 // Error reporting
 error_reporting(E_ALL);
