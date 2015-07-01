@@ -1,0 +1,11 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Arjo Bruijnes -- Developer -- @weirdwater
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5, PHP 5.6
+    Apache Server Configs, jQuery, Modernizr, Normalize.css
