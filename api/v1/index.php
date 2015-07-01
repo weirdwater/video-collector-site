@@ -15,6 +15,14 @@ try
                         'message' => 'No query provided'
                     ]);
                 break;
+            case 'video':
+                if (isset($_GET['id']))
+                    $youtube->videoDetails($_GET['id']);
+                else
+                    array_push( $reply['errors'],[
+                        'message' => 'No id provided'
+                    ]);
+                break;
             default :
                 // Return all saved videos
                 break;
