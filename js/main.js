@@ -1,8 +1,65 @@
-// Load first videos
+// Globals
+var categories = [];
+
+// Load initial data
+updateLatestVideos();
 getVideosByQuery('Gaming');
+getCategories();
+
 
 $('#search-button').on('click', searchButtonHandler);
-$('#search-results-videos').on('click',  videoItemHandler);
+$('.video-grid').on('click',  videoItemHandler);
+$('#add-video-button').on('click', addVideoToCategory);
+
+function addVideoToCategory()
+{
+    var video = $('#enlarged-video').prop('data-youtube-id');
+    var category = $('#add-video-dropdown option:selected').prop('id');
+
+    $.ajax({
+        datatype: 'json',
+        url: 'api/v1?action=insert&type=relation&ytId=' + video + '&catId=' + category
+    }).done( function() {
+        $('#add-video-button').prop('value', 'Added');
+        updateLatestVideos();
+    });
+}
+
+function updateLatestVideos()
+{
+    $.ajax({
+        datatype: 'json',
+        url: 'api/v1?action=video&id=latest'
+    }).done(function(response) {
+        $('.latest-videos .video-grid').empty();
+        for (i = 0; i < response.data.length; i++)
+        {
+            var video = response.data[i];
+            $('<section>', { class: 'video-grid-item', 'data-youtube-id': video.youtubeId})
+                .append($('<img>', { src: video.thumbnail, alt: video.title }))
+                .append($('<h1>', { text: video.title.substring(0,24) + '...' }))
+                .appendTo($('.latest-videos .video-grid'));
+        }
+    });
+}
+
+function getCategories()
+{
+    $.ajax({
+        datatype: 'json',
+        url: 'api/v1?action=category&category=list'
+    }).done(function(response) {
+        categories = response.data;
+        for (i = 0; i < categories.length; i++)
+        {
+            $('#add-video-dropdown').append($('<option>', {
+                text: categories[i].name,
+                id: categories[i].id
+            }));
+        }
+    });
+
+}
 
 function videoItemHandler(e)
 {
@@ -21,8 +78,9 @@ function viewVideo(youtubeId)
         var video = response.data[0];
         var enlargedVideo = $('#enlarged-video');
 
+        enlargedVideo.prop('data-youtube-id', youtubeId);
         enlargedVideo.find('h1').html(video.title);
-        enlargedVideo.find('p').html(video.description);
+        // enlargedVideo.find('p').html(video.description);
         $('#enlarged-video-iframe')
             .empty()
             .append('<iframe width="560" height="315" src="' + video.embedUrl + '" allowfullscreen frameborder="0">');
@@ -101,7 +159,7 @@ function updateSearchResults(response, reset)
 
         $('<section>', { class: 'video-grid-item', 'data-youtube-id': video.id})
             .append($('<img>', { src: video.thumbnail, alt: video.title }))
-            .append($('<h1>', { text: video.title }))
+            .append($('<h1>', { text: video.title.substring(0,24) + '...' }))
             .appendTo(rows[rows.length - 1]);
 
         i++;

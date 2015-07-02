@@ -107,7 +107,7 @@ img {
 }
 
 .video-grid-item h1 {
-    font-size: 1em;
+    font-size: .9em;
 }
 
 
@@ -137,6 +137,15 @@ img {
 /* ==========================================================================
    Explore View secific styles
    ========================================================================== */
+.explore-view {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.latest-videos,
+.find-videos {
+    padding: .5em;
+}
 
 #search-results {
     border: #333 1px solid;

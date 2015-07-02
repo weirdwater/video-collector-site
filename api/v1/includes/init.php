@@ -1,10 +1,11 @@
 <?php
 require 'settings.php';
 require 'Classes/YoutubeHandler.php';
+require 'Classes/DatabaseHandler.php';
 
 // Setup output array that will be changed into JSON
 $reply = [
-    'errors' => [],
+    'status' => [],
     'data' => []
 ];
 header('Content-Type: application/json');
@@ -23,12 +24,13 @@ try
 }
 catch (Exception $e)
 {
-	array_push( $reply['errors'],[
-		'message' => 'Database Connection Failed '. $e->getMessage() .' '. $e->getFile() .' on line '. $e->getLine(),
-		'code'    => $e->getCode()
-	]);
+	$reply['status']['message'] = 'PDOException: ' . $e->getMessage();
+    $reply['status']['file'] = $e->getFile();
+    $reply['status']['line'] = $e->getLine();
+    $reply['status']['code'] = $e->getCode();
 	echo json_encode($reply);
 	exit;
 }
 
 $youtube = new \imp\YoutubeHandler();
+$database = new \imp\DatabaseHandler();

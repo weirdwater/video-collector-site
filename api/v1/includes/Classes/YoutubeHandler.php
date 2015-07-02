@@ -42,10 +42,6 @@ class YoutubeHandler {
             // Add Key
             $url .= '&key=' . YOUTUBE_KEY;
 
-            array_push( $reply['errors'],[
-                'message' => YOUTUBE_API . $url,
-            ]);
-
             // Retrieve data
             $youtubeRaw = file_get_contents(YOUTUBE_API . $url);
             $youtubeDec = json_decode($youtubeRaw);
@@ -57,25 +53,32 @@ class YoutubeHandler {
             foreach ($youtubeDec->items as $video)
             {
                 array_push($reply['data'],[
-                    'title' => $video->snippet->title,
-                    'id' => $video->id->videoId,
-                    'url' => 'https://www.youtube.com/watch?v=' . $video->id->videoId,
+                    'title'     => $video->snippet->title,
+                    'id'        => $video->id->videoId,
+                    'url'       => 'https://www.youtube.com/watch?v=' . $video->id->videoId,
                     'thumbnail' => 'https://i.ytimg.com/vi/' . $video->id->videoId . '/mqdefault.jpg'
                 ]);
             }
         }
         catch (\Exception $e)
         {
-            array_push( $reply['errors'],[
-                'message' => 'Youtube Search: '. $e->getMessage() .' '. $e->getFile() .' on line '. $e->getLine(),
-                'code'    => $e->getCode()
-            ]);
+            $reply['status']['message'] = 'Youtube: ' . $e->getMessage();
+            $reply['status']['file'] = $e->getFile();
+            $reply['status']['line'] = $e->getLine();
+            $reply['status']['code'] = 400;
+            echo json_encode($reply);
+            exit;
         }
+
+        // Everything went right
+        $reply['status']['message'] = 'Videos retrieved successfully';
+        $reply['status']['code'] = 200;
     }
 
     function videoDetails ($youtubeId)
     {
         global $reply;
+        global $db;
 
         try
         {
@@ -89,24 +92,28 @@ class YoutubeHandler {
             foreach ($youtubeDec->items as $video)
             {
                 array_push($reply['data'],[
-                    'title' => $video->snippet->title,
-                    'url' => 'https://www.youtube.com/watch?v=' . $video->id,
-                    'embedUrl' => 'https://www.youtube.com/embed/' . $video->id,
-                    'thumbnail' => 'https://i.ytimg.com/vi/' . $video->id . '/mqdefault.jpg',
-                    'description' => $video->snippet->description,
-                    'views' => $video->statistics->viewCount,
-                    'published' => $video->snippet->publishedAt,
+                    'title'        => $video->snippet->title,
+                    'url'          => 'https://www.youtube.com/watch?v=' . $video->id,
+                    'embedUrl'     => 'https://www.youtube.com/embed/' . $video->id,
+                    'thumbnail'    => 'https://i.ytimg.com/vi/' . $video->id . '/mqdefault.jpg',
+                    'description'  => $video->snippet->description,
+                    'views'        => $video->statistics->viewCount,
+                    'published'    => $video->snippet->publishedAt,
                     'channelTitle' => $video->snippet->channelTitle,
-                    'channelId' => $video->snippet->channelId
+                    'channelId'    => $video->snippet->channelId
                 ]);
+                $reply['status']['message'] = 'Video details retrieved successfully';
+                $reply['status']['code'] = 200;
             }
         }
         catch (\Exception $e)
         {
-            array_push( $reply['errors'],[
-                'message' => 'Youtube lookup: '. $e->getMessage() .' '. $e->getFile() .' on line '. $e->getLine(),
-                'code'    => $e->getCode()
-            ]);
+            $reply['status']['message'] = 'Youtube: ' . $e->getMessage();
+            $reply['status']['file'] = $e->getFile();
+            $reply['status']['line'] = $e->getLine();
+            $reply['status']['code'] = 400;
+            echo json_encode($reply);
+            exit;
         }
     }
 }

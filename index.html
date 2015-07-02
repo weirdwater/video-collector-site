@@ -20,37 +20,43 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <div class="collectionView">
+        <div class="collection-view">
 
         </div>
 
-        <div class="exploreView">
-            <section>
-                <h1>Search:</h1>
-                <input type="text" placeholder="Search query" id="search-text"/>
-                <input type="button" value="Go!" id="search-button"/>
-            </section>
-
-            <section id="enlarged-video">
-                <h1>Selected video:</h1>
-                <div id="enlarged-video-iframe">
-
-                </div>
-                <p>Description</p>
-                <h2>Add to collection</h2>
-                <select>
-                    <option value="">Favorites</option>
-                    <option value="">League</option>
-                </select>
-                <input type="button" value="Add"/>
-            </section>
-
-            <section id="search-results" class="search-results">
-                <h1>Results for <span id="searched-query">popular</span>:</h1>
-                <div id="search-results-videos" class="video-grid">
+        <div class="explore-view">
+            <section class="latest-videos">
+                <h1>Your videos</h1>
+                <div class="video-grid">
 
                 </div>
             </section>
+            <div class="find-videos">
+                <section>
+                    <h1>Search:</h1>
+                    <input type="text" placeholder="Search query" id="search-text"/>
+                    <input type="button" value="Go!" id="search-button"/>
+                </section>
+
+                <section id="enlarged-video" data-youtube-id="">
+                    <h1>Selected video:</h1>
+                    <div id="enlarged-video-iframe">
+
+                    </div>
+                    <h2>Add to collection</h2>
+                    <select id="add-video-dropdown">
+                        <option disabled>Choose a category...</option>
+                    </select>
+                    <input type="button" value="Add" id="add-video-button"/>
+                </section>
+
+                <section id="search-results" class="search-results">
+                    <h1>Results for <span id="searched-query">popular</span>:</h1>
+                    <div id="search-results-videos" class="video-grid">
+
+                    </div>
+                </section>
+            </div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
