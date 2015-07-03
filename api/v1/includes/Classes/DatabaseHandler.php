@@ -21,7 +21,7 @@ class DatabaseHandler {
         try
         {
             $submission = $db->prepare("
-                INSERT Categories (name)
+                INSERT categories (name)
                 VALUE (?);
             ");
             $submission->bindParam(1, $categoryName);
@@ -114,7 +114,7 @@ class DatabaseHandler {
             }
 
             $submission = $db->prepare("
-                INSERT INTO categories_has_videos (`Category_id`, `Videos_id`)
+                INSERT INTO categories_has_videos (`category_id`, `videos_id`)
                 VALUE (?, ?);
             ");
             $submission->bindParam(1, $categoryId, \PDO::PARAM_INT);
@@ -150,7 +150,7 @@ class DatabaseHandler {
         {
             $request = $db->prepare("
                 DELETE FROM categories_has_videos
-                WHERE Videos_id = ? AND Category_id = ?
+                WHERE videos_id = ? AND category_id = ?
             ");
             $request->bindParam(1, $video);
             $request->bindParam(2, $category);
@@ -263,21 +263,18 @@ class DatabaseHandler {
         {
             $request = $db->prepare("
                 SELECT *
-                FROM videos
-                WHERE id IN (
-                    SELECT Videos_id
-                    FROM categories_has_videos
-                    WHERE Category_id=?
-                )
+                FROM videos v, categories_has_videos chv
+                WHERE v.id = Videos_id
+                AND category_id=?
+                ORDER BY `datetime` DESC
             ");
             $request->bindParam(1, $categoryId, \PDO::PARAM_INT);
             $request->execute();
             $request = $request->fetchAll(\PDO::FETCH_ASSOC);
 
-            $reply['data'][$categoryId] = [];
             foreach ($request as $video)
             {
-                array_push($reply['data'][$categoryId],[
+                array_push($reply['data'],[
                     'videoId'   => $video['id'],
                     'title'     => $video['title'],
                     'youtubeId' => $video['youtube_id'],
@@ -317,14 +314,23 @@ class DatabaseHandler {
         {
             $request = $db->prepare("
                 SELECT *
-                FROM categories
+                FROM videos v, categories_has_videos chv
+                WHERE v.id = Videos_id
+                ORDER BY `datetime` DESC
             ");
             $request->execute();
             $request = $request->fetchAll(\PDO::FETCH_ASSOC);
 
-            foreach ($request as $row)
+            foreach ($request as $video)
             {
-                $this->getCategory($row['id']);
+                array_push($reply['data'],[
+                    'videoId'   => $video['id'],
+                    'title'     => $video['title'],
+                    'youtubeId' => $video['youtube_id'],
+                    'url'       => 'https://www.youtube.com/watch?v=' . $video['youtube_id'],
+                    'embedUrl'  => 'https://www.youtube.com/embed/' . $video['youtube_id'],
+                    'thumbnail' => 'https://i.ytimg.com/vi/' . $video['youtube_id'] . '/mqdefault.jpg'
+                ]);
             }
 
         }
@@ -344,7 +350,7 @@ class DatabaseHandler {
             exit;
         }
         // Everything went right
-        $reply['status']['message'] = 'Succesfully retrieved all categories';
+        $reply['status']['message'] = 'Succesfully retrieved all category videos';
         $reply['status']['code'] = 200;
     }
 
@@ -359,7 +365,7 @@ class DatabaseHandler {
                 SELECT *
                 FROM videos v, categories_has_videos chv
                 WHERE v.id = chv.videos_id
-                ORDER BY datetime DESC
+                ORDER BY `datetime` DESC
                 LIMIT 10
             ');
             $request->bindParam(1, $categoryId, \PDO::PARAM_INT);

@@ -87,6 +87,10 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.hidden {
+    display: none;
+}
+
 img {
     max-width: 100%;
 }
@@ -95,6 +99,7 @@ img {
     border: #F33 1px solid;
 }
 
+.flex,
 .video-grid-row {
     display: -webkit-flex;
     display: flex;
@@ -104,6 +109,11 @@ img {
     border: #3F3 1px solid;
     max-width: 250px;
     margin: 1em;
+}
+
+.video-grid-item h1,
+.video-grid-item img {
+    cursor: pointer;
 }
 
 .video-grid-item h1 {
@@ -124,6 +134,15 @@ img {
    Collection View specific styles
    ========================================================================== */
 
+.categories,
+.category-contents {
+    padding: .5em;
+}
+
+#category-list li {
+    border: #33F 1px solid;
+    cursor: pointer;
+}
 
 
 
@@ -137,11 +156,6 @@ img {
 /* ==========================================================================
    Explore View secific styles
    ========================================================================== */
-.explore-view {
-    display: -webkit-flex;
-    display: flex;
-}
-
 .latest-videos,
 .find-videos {
     padding: .5em;

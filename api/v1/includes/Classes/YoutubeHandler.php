@@ -54,7 +54,7 @@ class YoutubeHandler {
             {
                 array_push($reply['data'],[
                     'title'     => $video->snippet->title,
-                    'id'        => $video->id->videoId,
+                    'youtubeId' => $video->id->videoId,
                     'url'       => 'https://www.youtube.com/watch?v=' . $video->id->videoId,
                     'thumbnail' => 'https://i.ytimg.com/vi/' . $video->id->videoId . '/mqdefault.jpg'
                 ]);
@@ -93,6 +93,7 @@ class YoutubeHandler {
             {
                 array_push($reply['data'],[
                     'title'        => $video->snippet->title,
+                    'youtubeId'    => $video->id,
                     'url'          => 'https://www.youtube.com/watch?v=' . $video->id,
                     'embedUrl'     => 'https://www.youtube.com/embed/' . $video->id,
                     'thumbnail'    => 'https://i.ytimg.com/vi/' . $video->id . '/mqdefault.jpg',
