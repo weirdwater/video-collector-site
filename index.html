@@ -20,65 +20,69 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <section class="latest-videos hidden">
-            <h1>Your videos</h1>
-            <div class="video-grid">
+        <div id="switch">+</div>
 
-            </div>
-        </section>
-        <div class="container">
-            <header id="collection-view" class="">
-                <h1>My favorite gaming videos</h1>
-            </header>
-            <header id="explore-view" class="hidden">
-                <h1>Search:</h1>
-                <input type="text" placeholder="Search query" id="search-text"/>
-                <input type="button" value="Go!" id="search-button"/>
-            </header>
+        <div class="container flex">
+            <aside class="latest-videos">
+                <h1>Your videos</h1>
+                <div class="video-grid">
 
-            <div class="theater">
-                <section id="enlarged-video" data-youtube-id="">
-                    <h2>Selected video:</h2>
-                    <div id="enlarged-video-iframe">
+                </div>
+            </aside>
+            <main>
+                <header id="collection-header">
+                    <h1>My favorite gaming videos</h1>
+                </header>
+                <header id="explore-header">
+                    <h1>Search:</h1>
+                    <input type="text" placeholder="Search query" id="search-text"/>
+                    <input type="button" value="Go!" id="search-button"/>
+                </header>
 
+                <div class="theater">
+                    <section id="enlarged-video" data-youtube-id="">
+                        <h2>Selected video:</h2>
+                        <div id="enlarged-video-iframe">
+
+                        </div>
+
+                    </section>
+                </div>
+                <div class="videos">
+                    <div class="collection-view ">
+                        <div class="flex">
+                            <section class="categories">
+                                <h2>Categories</h2>
+                                <ul id="category-list">
+                                    <li data-category="all">All</li>
+                                </ul>
+                            </section>
+                            <section class="category-contents">
+                                <h2>Showing videos from <span id="current-category"></span></h2>
+                                <div id="favorited-videos" class="video-grid">
+
+                                </div>
+                            </section>
+                        </div>
                     </div>
 
-                </section>
-            </div>
-            <div class="videos">
-                <div class="collection-view ">
-                    <div class="flex">
-                        <section class="categories">
-                            <h2>Categories</h2>
-                            <ul id="category-list">
-                                <li data-category="all">All</li>
-                            </ul>
-                        </section>
-                        <section class="category-contents">
-                            <h2>Showing videos from <span id="current-category"></span></h2>
-                            <div id="favorited-videos" class="video-grid">
+                    <div class="explore-view">
+                        <h2>Add to collection</h2>
+                        <select id="add-video-dropdown">
+                            <option disabled>Choose a category...</option>
+                        </select>
+                        <input type="button" value="Add" id="add-video-button"/>
+                        <div class="find-videos">
+                            <section id="search-results" class="search-results">
+                                <h1>Results for <span id="searched-query">popular</span>:</h1>
+                                <div id="search-results-videos" class="video-grid">
 
-                            </div>
-                        </section>
+                                </div>
+                            </section>
+                        </div>
                     </div>
                 </div>
-
-                <div class="explore-view hidden">
-                    <h2>Add to collection</h2>
-                    <select id="add-video-dropdown">
-                        <option disabled>Choose a category...</option>
-                    </select>
-                    <input type="button" value="Add" id="add-video-button"/>
-                    <div class="find-videos">
-                        <section id="search-results" class="search-results">
-                            <h1>Results for <span id="searched-query">popular</span>:</h1>
-                            <div id="search-results-videos" class="video-grid">
-
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
+            </main>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

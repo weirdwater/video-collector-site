@@ -1,23 +1,48 @@
 // Globals
 var categories = [];
-var view = 'collection';
+var view = 'explore';
+switchView();
 
 getCategories();
-
-// Load initial data
-updateLatestVideos();
-getVideosByQuery('Gaming');
-
 
 $('#search-button').on('click', searchButtonHandler);
 $('.video-grid').on('click', videoItemHandler);
 $('#add-video-button').on('click', addVideoToCategory);
 $('#category-list').on('click', 'li', showCategory);
+$('#switch').on('click', switchView);
 
 
 function switchView()
 {
-    $('.explore-view');
+    if (view == 'collection')
+    {
+        view = 'explore';
+        updateLatestVideos();
+        getVideosByQuery('gaming');
+
+        // Hide collection view
+        $('#collection-header').hide();
+        $('.collection-view').hide();
+
+        // Show explore view
+        $('#explore-header').show();
+        $('.explore-view').show();
+        $('.latest-videos').show();
+    }
+    else if (view == 'explore')
+    {
+        view = 'collection';
+        getCategoryVideos('all');
+
+        // Hide explore view
+        $('#explore-header').hide();
+        $('.explore-view').hide();
+        $('.latest-videos').hide();
+
+        // Show collection view
+        $('#collection-header').show();
+        $('.collection-view').show();
+    }
 }
 
 function showCategory(e)
@@ -31,7 +56,6 @@ function getCategoryVideos(categoryId)
     var categoryName = 'all categories';
     for (i = 0; i < categories.length; i++)
     {
-        console.log(categories[i].name);
         if (categories[i].id == categoryId)
         {
             categoryName = categories[i].name;
