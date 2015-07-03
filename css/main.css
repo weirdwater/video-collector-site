@@ -91,10 +91,6 @@ img {
     max-width: 100%;
 }
 
-.video-grid {
-    border: #F33 1px solid;
-}
-
 .flex,
 .video-grid-row {
     display: -webkit-flex;
@@ -102,9 +98,21 @@ img {
 }
 
 .video-grid-item {
-    border: #3F3 1px solid;
     max-width: 250px;
     margin: 1em;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+}
+
+.video-grid-item:hover {
+  background-color: #ffffff;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+
+}
+
+.latest-videos .video-grid-item:hover {
+  background-color: #716e6e;
 }
 
 .video-grid-item h1,
@@ -116,12 +124,63 @@ img {
     font-size: .9em;
 }
 
+#switch {
+  font-weight: bolder;
+  font-size: 2em;
+  padding: 28px 40px;
+  background: #208035;
+  color: #fff;
+  position: fixed;
+  right: 0;
+  top: 45%;
+  cursor: pointer;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
 
+#switch:hover {
+  background: #2db54b;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
 
+.latest-videos {
+  padding: .5em;
+  background-color: #4d4d4d;
+  color: #fff;
+}
 
+body {
+  background: #f2f2f2;
+}
 
+.theater {
+  height: 650px;
+  /*display: -webkit-flex;
+  display:         flex;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-justify-content: center;
+          justify-content: center;*/
+}
 
+.explore-header {
+  padding: 2em;
+  height: 300px;
+}
 
+#search-text {
+  width: 90%;
+  font-size: 2em;
+}
+
+#search-button {
+  font-size: 2em;
+}
+
+main {
+  padding: 2em;
+}
 
 
 
@@ -135,11 +194,29 @@ img {
     padding: .5em;
 }
 
-#category-list li {
-    border: #33F 1px solid;
-    cursor: pointer;
+#category-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
+#category-list li {
+  background-color: #c13926;
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ebebeb;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+#category-list li:hover {
+  background-color: #df3e27;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
 
 
 
@@ -152,14 +229,15 @@ img {
 /* ==========================================================================
    Explore View secific styles
    ========================================================================== */
-.latest-videos,
-.find-videos {
+.latest-videos {
     padding: .5em;
+    overflow: auto;
 }
 
-#search-results {
-    border: #333 1px solid;
+.latest-videos h1 {
+  margin: 1.3em .5em 1em;
 }
+
 
 
 

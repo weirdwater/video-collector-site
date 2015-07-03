@@ -27,7 +27,7 @@ function switchView()
         // Show explore view
         $('#explore-header').show();
         $('.explore-view').show();
-        $('.latest-videos').show();
+        $('.latest-videos').animate({ 'width': '282px' }, 'slow');
     }
     else if (view == 'explore')
     {
@@ -37,7 +37,7 @@ function switchView()
         // Hide explore view
         $('#explore-header').hide();
         $('.explore-view').hide();
-        $('.latest-videos').hide();
+        $('.latest-videos').animate({ 'width': '0' }, 'slow');;
 
         // Show collection view
         $('#collection-header').show();
@@ -151,7 +151,7 @@ function viewVideo(youtubeId) {
         // enlargedVideo.find('p').html(video.description);
         $('#enlarged-video-iframe')
             .empty()
-            .append('<iframe width="560" height="315" src="' + video.embedUrl + '" allowfullscreen frameborder="0">');
+            .append('<iframe width="1024" height="576" src="' + video.embedUrl + '" allowfullscreen frameborder="0">');
     });
 }
 
