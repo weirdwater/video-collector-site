@@ -6,13 +6,9 @@ define('DB_NAME', 'imp-her');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
 
-// PATH
-define('BASE_URL', '/');
-define('ROOT_PATH', $SERVER['DOCUMENT_ROOT'].'/api/v1/');
-
 // Error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+error_reporting(0);
+ini_set('display_errors', 0);
 
 // Turns 'normal' errors into Exceptions.
 set_error_handler(function ($errno, $errstr, $errfile, $errline)

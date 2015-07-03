@@ -21,7 +21,7 @@ class DatabaseHandler {
         try
         {
             $submission = $db->prepare("
-                INSERT categories (name)
+                INSERT INTO categories (`name`)
                 VALUE (?);
             ");
             $submission->bindParam(1, $categoryName);
@@ -57,7 +57,7 @@ class DatabaseHandler {
         try
         {
             $submission = $db->prepare("
-                INSERT Videos (youtube_id, title)
+                INSERT INTO videos (`youtube_id`, `title`)
                 VALUE (?, ?);
             ");
             $submission->bindParam(1, $youtubeId);
@@ -93,9 +93,9 @@ class DatabaseHandler {
         try
         {
             $videoCheck = $db->prepare('
-                SELECT COUNT(youtube_id) AS number_of_videos, id
+                SELECT COUNT(`youtube_id`) AS number_of_videos, `id`
                 FROM videos
-                WHERE youtube_id = ?
+                WHERE `youtube_id` = ?
             ');
             $videoCheck->bindParam(1, $youtubeId);
             $videoCheck->execute();
@@ -114,7 +114,7 @@ class DatabaseHandler {
             }
 
             $submission = $db->prepare("
-                INSERT INTO categories_has_videos (`category_id`, `videos_id`)
+                INSERT INTO categories_has_videos (`category_id`, `video_id`)
                 VALUE (?, ?);
             ");
             $submission->bindParam(1, $categoryId, \PDO::PARAM_INT);
@@ -150,7 +150,7 @@ class DatabaseHandler {
         {
             $request = $db->prepare("
                 DELETE FROM categories_has_videos
-                WHERE videos_id = ? AND category_id = ?
+                WHERE `video_id` = ? AND `category_id` = ?
             ");
             $request->bindParam(1, $video);
             $request->bindParam(2, $category);
@@ -220,7 +220,7 @@ class DatabaseHandler {
             $request = $db->prepare("
                 SELECT *
                 FROM categories
-                ORDER BY id ASC
+                ORDER BY `id` ASC
             ");
             $request->execute();
             $request = $request->fetchAll(\PDO::FETCH_ASSOC);
@@ -264,8 +264,8 @@ class DatabaseHandler {
             $request = $db->prepare("
                 SELECT *
                 FROM videos v, categories_has_videos chv
-                WHERE v.id = Videos_id
-                AND category_id=?
+                WHERE v.`id` = `video_id`
+                AND `category_id`=?
                 ORDER BY `datetime` DESC
             ");
             $request->bindParam(1, $categoryId, \PDO::PARAM_INT);
@@ -315,7 +315,7 @@ class DatabaseHandler {
             $request = $db->prepare("
                 SELECT *
                 FROM videos v, categories_has_videos chv
-                WHERE v.id = Videos_id
+                WHERE v.`id` = `video_id`
                 ORDER BY `datetime` DESC
             ");
             $request->execute();
@@ -364,7 +364,7 @@ class DatabaseHandler {
             $request = $db->prepare('
                 SELECT *
                 FROM videos v, categories_has_videos chv
-                WHERE v.id = chv.videos_id
+                WHERE v.`id` = chv.`video_id`
                 ORDER BY `datetime` DESC
                 LIMIT 10
             ');
