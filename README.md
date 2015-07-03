@@ -20,7 +20,7 @@ A school assignment. The idea is to make a website where users can search for th
 5. Voeg een nieuwe categorie toe door te gaan naar `BASE_URL/api/v1?action=insert&type=category&title=CATEGORYTITLE`.
 6. Klaar is kees, start maar met video's verzamelen.
 
-Live versie op [mijn website](www.weridwater.net/imp-her).
+Live versie op [mijn website](www.weridwater.net/imp-her) en de code ook op [GitHub](http://www.github.com/weirdwater/video-collector-site).
 
 
 ## Veranderingen
